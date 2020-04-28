@@ -19,6 +19,12 @@ namespace WebApiClient
             foreach (var repo in repositories)
             {
                 System.Console.WriteLine(repo.Name);
+                Console.WriteLine(repo.Description);
+                Console.WriteLine(repo.GitHubHomeUrl);
+                Console.WriteLine(repo.Homepage);
+                Console.WriteLine(repo.Watchers);
+                Console.WriteLine(repo.LastPush);
+                Console.WriteLine();                
             }
 
         }
