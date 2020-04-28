@@ -11,13 +11,20 @@ namespace WebApiClient
     {
         static async Task Main(string[] args)
         {
-            Console.WriteLine("\nWeb API Client\n\n");
+            Console.WriteLine("\n=== Web API Client ===\n\n");
 
-            await ProcessRepositories();
+            var repositories = await ProcessRepositories();
+            // Print list of repo.Name
+            System.Console.WriteLine("List of repo:\n");
+            foreach (var repo in repositories)
+            {
+                System.Console.WriteLine(repo.Name);
+            }
+
         }
 
         private static readonly HttpClient client = new HttpClient();
-        private static async Task ProcessRepositories()
+        private static async Task<List<Repository>> ProcessRepositories()
         {
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
@@ -35,12 +42,7 @@ namespace WebApiClient
             var streamTask = client.GetStreamAsync(url);
             var repositories = await JsonSerializer.DeserializeAsync<List<Repository>>(await streamTask);
 
-            foreach (var repo in repositories)
-            {
-                System.Console.WriteLine(repo.name);
-            }
-
-
+            return repositories;
             
         }
     }
